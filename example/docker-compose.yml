@@ -26,6 +26,8 @@ services:
       - MAIL_PORT=1025
   mail:
     image: mailhog/mailhog:latest
+    ports:
+      - 8025:8025
     networks:
       - statamic
   redis:
