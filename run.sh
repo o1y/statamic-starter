@@ -47,6 +47,7 @@ init() {
 	if [[ ! -f /app/statamic/config/app.php ]]; then
 		h1 'No Statamic found. Begin Statamic Installation ...'
 		composer create-project statamic/statamic /app/statamic --prefer-dist --no-progress --stability=dev
+		sudo ln -s /app/statamic/please /usr/local/bin/please && chown +x /usr/local/bin/please
 	fi
 
 	# Apache config adustments
