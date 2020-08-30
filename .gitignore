@@ -17,4 +17,4 @@ Thumbs.db
 .history
 
 # Statamic
-data/statamic
+example/data/statamic
