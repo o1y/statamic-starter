@@ -1,0 +1,37 @@
+version: '3.7'
+
+networks:
+  statamic:
+    driver: bridge
+
+services:
+  statamic:
+    image: o1y/statamic
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse
+    ports:
+      - 8080:80
+      - 443:443
+    volumes:
+      - ./data:/app
+    networks:
+      - statamic
+    environment:
+      - CACHE_DRIVER=redis
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - MAIL_HOST=mail
+      - MAIL_PORT=1025
+  mail:
+    image: mailhog/mailhog:latest
+    networks:
+      - statamic
+  redis:
+    image: redis:alpine
+    networks:
+      - statamic
+
+volumes:
+  data:
