@@ -5,8 +5,11 @@ LABEL maintainer="Oliver Mesieh <olivermesieh@gmail.com>" \
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+# Set debian mirror
+RUN sed -i 's/deb.debian.org/ftp2.de.debian.org/' /etc/apt/sources.list
+
 # Install requirements
-RUN echo "deb http://ftp.debian.org/debian $(sed -n 's/^VERSION=.*(\(.*\)).*/\1/p' /etc/os-release)-backports main" >> /etc/apt/sources.list \
+RUN echo "deb http://ftp2.de.debian.org/debian $(sed -n 's/^VERSION=.*(\(.*\)).*/\1/p' /etc/os-release)-backports main" >> /etc/apt/sources.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         bash-completion \
