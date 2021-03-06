@@ -31,7 +31,10 @@ RUN echo "deb http://ftp.debian.org/debian $(sed -n 's/^VERSION=.*(\(.*\)).*/\1/
     && docker-php-ext-install \
         bcmath \
         gd \
-    && docker-php-ext-enable redis \
+        exif \
+    && docker-php-ext-enable \
+        redis \
+        exif \
     && { \
         echo 'file_uploads = On'; \
         echo 'memory_limit = 128M'; \
@@ -52,10 +55,17 @@ RUN echo "deb http://ftp.debian.org/debian $(sed -n 's/^VERSION=.*(\(.*\)).*/\1/
     # fully qualified domain name
     && echo 'ServerName localhost' > /etc/apache2/conf-available/fqdn.conf \
     && a2enconf fqdn \
-    && a2enmod rewrite expires
+    && a2enmod rewrite expires ssl \
+    && a2ensite default-ssl
 
 # Get Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Create self-signed SSL cert
+RUN openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 \ 
+    -keyout /etc/ssl/private/ssl-cert-snakeoil.key \
+    -out /etc/ssl/certs/ssl-cert-snakeoil.pem \
+    -subj /CN=*.local
 
 # Add admin superuser, create install directory, adjust perms, & add symlink
 COPY run.sh /run.sh

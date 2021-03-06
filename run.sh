@@ -47,7 +47,7 @@ init() {
 	if [[ ! -f /app/statamic/config/app.php ]]; then
 		h1 'No Statamic found. Begin Statamic Installation ...'
 		composer create-project statamic/statamic /app/statamic --prefer-dist --no-progress --stability=dev
-		sudo ln -s /app/statamic/please /usr/local/bin/please && chown +x /usr/local/bin/please
+		sudo ln -s /app/statamic/please /usr/local/bin/please && chown +x /usr/local/bin/please /app/statamic/please
 	fi
 
 	# Apache config adustments
@@ -59,7 +59,7 @@ init() {
 
 	# Apache set Document Root
 	sudo sed -i "s@DocumentRoot.*\$@DocumentRoot ${DOCUMENT_ROOT:-/var/www/html/statamic/public}@g" \
-		/etc/apache2/sites-available/000-default.conf
+		/etc/apache2/sites-available/*.conf
 	
 	# Apache pass environment variables
 	sudo tee /etc/apache2/conf-enabled/environment.conf > /dev/null <<-EOF
@@ -68,6 +68,7 @@ init() {
 	SetEnv REDIS_PORT ${REDIS_PORT:-6379} 
 	SetEnv MAIL_HOST ${MAIL_HOST:-smtp.mailtrap.io}
 	SetEnv MAIL_PORT ${MAIL_PORT:-2525}
+	SetEnv COMPOSER_HOME ${COMPOSER_HOME:-/usr/bin/composer}
 	EOF
 
 	# Fix file permissions
