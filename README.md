@@ -26,7 +26,7 @@ To quickly get started, you can run the following commands:
 
 ```
 git clone --depth=1 git@github.com:o1y/statamic-starter.git
-cd example
+cd statamic-starter/example
 docker-compose up
 ```
 
