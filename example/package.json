@@ -1,9 +1,0 @@
-{
-  "name": "example",
-  "version": "0.1.0",
-  "scripts": {
-    "please": "docker-compose exec statamic please"
-  },
-  "dependencies": {},
-  "devDependencies": {}
-}

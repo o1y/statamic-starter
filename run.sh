@@ -44,10 +44,10 @@ main() {
 
 init() {
 	# Install Statamic
-	if [[ ! -f /app/statamic/config/app.php ]]; then
+	if [[ ! -f /app/config/app.php ]]; then
 		h1 'No Statamic found. Begin Statamic Installation ...'
-		composer create-project statamic/statamic /app/statamic --prefer-dist --no-progress --stability=dev
-		sudo ln -s /app/statamic/please /usr/local/bin/please && chown +x /usr/local/bin/please /app/statamic/please
+		composer create-project statamic/statamic /app --prefer-dist --no-progress --stability=dev
+		sudo ln -s /app/please /usr/local/bin/please && chown +x /usr/local/bin/please /app/please
 	fi
 
 	# Apache config adustments
@@ -58,7 +58,7 @@ init() {
 		-e '}' /etc/apache2/sites-available/000-default.conf
 
 	# Apache set Document Root
-	sudo sed -i "s@DocumentRoot.*\$@DocumentRoot ${DOCUMENT_ROOT:-/var/www/html/statamic/public}@g" \
+	sudo sed -i "s@DocumentRoot.*\$@DocumentRoot ${DOCUMENT_ROOT:-/var/www/html/public}@g" \
 		/etc/apache2/sites-available/*.conf
 	
 	# Apache pass environment variables
@@ -72,8 +72,8 @@ init() {
 	EOF
 
 	# Fix file permissions
-	if [[ -f /app/statamic/ ]]; then
-		sudo find /app/statamic ! \( -user admin -group admin \) -exec chown admin:admin {} \;
+	if [[ -f /app/ ]]; then
+		sudo find /app ! \( -user admin -group admin \) -exec chown admin:admin {} \;
 	fi
 
 	h1 'Statamic is ready'

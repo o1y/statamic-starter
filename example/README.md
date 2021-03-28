@@ -22,7 +22,7 @@ services:
       - 8080:80
       - 443:443
     volumes:
-      - ./data:/app
+      - ./statamic:/app
     networks:
       - statamic
 volumes:

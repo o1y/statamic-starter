@@ -35,16 +35,16 @@ http://localhost:8080
 To run [CLI](https://statamic.dev/cli) get an interactive prompt first:
 
 ```
-docker-compose exec app bash
+docker-compose exec statamic bash
 ```
 
-Run `php artisan` or `php please` inside the app service.
+Run `php artisan` or `php please` inside the statamic service.
 
 
 Alternatively, the commands can also be executed directly on the host.
 
 ```
-docker-compose exec app ./artisan
+docker-compose exec statamic php please
 ```
 
 ## Build Image
