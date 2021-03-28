@@ -13,7 +13,7 @@ Of course you can use the mentioned development environments. I'm sure they are 
 So why another development environment? For me there are two reasons:
 1. I want to use my local development environment in such a way that I don't have to install any dependencies on my system with the exception of Docker :)
 
-2. I want to use an environment for testing that almost matches my clients remote setup. Many of my customers use Apache web servers on shared hosting environments. Laravel Sail uses only the Built-in PHP web server in which it is not possible to test real web server configurations, like modifications to '.htaccess'.
+2. I want to use an environment for testing that almost matches the remote environment. Many of my customers use Apache web servers on shared hosting environments. Laravel Sail uses only the Built-in PHP web server in which it is not possible to test real web server configurations, like modifications to `.htaccess`.
 
 ## Requirements
 
