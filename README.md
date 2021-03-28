@@ -1,5 +1,5 @@
-# Statamic Starter
-Statamic Starter is a Docker development environment to make [Statamic](https://www.statamic.com) development even more fun and easy. This is all you need to easily build a Statamic website using Apache and PHP.
+# Statamic V3 Starter
+Statamic Starter is a Docker development environment to make [Statamic V3](https://www.statamic.com) development even more fun and easy. This is all you need to easily build a Statamic website using Apache and PHP.
 
 This setup is currently tested on macOS.
 
@@ -10,7 +10,6 @@ This setup is currently tested on macOS.
 
 * Docker Engine >= 20.10.3
 * Docker Compose >= 1.28.5
-* npm >= 6.14.10
 
 ## Installation
 
@@ -47,7 +46,8 @@ Alternatively, the commands can also be executed directly on the host.
 docker-compose exec statamic php please
 ```
 
-## Build Image
+## Build Images
+Of course you can modify the existing `Dockerfile`. These are located inside `images/*/Dockerfile`. To build the images you can run the `build.sh` script using [npm](https://www.npmjs.com/).
 
 ```
 npm run build
