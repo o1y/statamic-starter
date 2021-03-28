@@ -2,6 +2,7 @@ FROM php:7.4-apache
 ARG VERSION=latest
 LABEL maintainer="Oliver Mesieh <olivermesieh@gmail.com>" \
       version="${VERSION}-php7.4"
+LABEL org.opencontainers.image.source https://github.com/o1y/statamic-starter
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 

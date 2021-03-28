@@ -13,7 +13,7 @@ networks:
 
 services:
   statamic:
-    image: o1y/statamic
+    image: ghcr.io/o1y/statamic-starter:latest-php7.4
     cap_add:
       - SYS_ADMIN
     devices:
@@ -25,12 +25,6 @@ services:
       - ./data:/app
     networks:
       - statamic
-    environment:
-      - CACHE_DRIVER=redis
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - MAIL_HOST=mail
-      - MAIL_PORT=1025
 volumes:
   data:
 ```

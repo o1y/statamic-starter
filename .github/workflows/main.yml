@@ -1,0 +1,33 @@
+name: 🚢 Build Docker Images
+
+on:
+  push:
+    branches:
+      - master
+      
+env:
+  IMAGE_NAME: ghcr.io/o1y/statamic-starter
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 12
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: '12'
+      
+      - name: 🔨 Build Images
+        run: |
+          npm run build
+
+      - name: Log into registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: 🚀 Push images
+        run: |
+          docker push -a $IMAGE_NAME
