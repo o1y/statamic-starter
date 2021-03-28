@@ -1,7 +1,7 @@
 {
   "name": "o1y-statamic",
-  "version": "0.0.1",
-  "description": "A statamic development workflow",
+  "version": "1.0.0",
+  "description": "A docker statamic development workflow",
   "main": "index.js",
   "author": "Oliver Mesieh <olivermesieh@gmail.com>",
   "license": "MIT",

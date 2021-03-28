@@ -64,10 +64,10 @@ init() {
 	# Apache pass environment variables
 	sudo tee /etc/apache2/conf-enabled/environment.conf > /dev/null <<-EOF
 	SetEnv CACHE_DRIVER ${CACHE_DRIVER:-file}    
-	SetEnv REDIS_HOST ${REDIS_HOST:-127.0.0.1} 
+	SetEnv REDIS_HOST ${REDIS_HOST:-redis} 
 	SetEnv REDIS_PORT ${REDIS_PORT:-6379} 
-	SetEnv MAIL_HOST ${MAIL_HOST:-smtp.mailtrap.io}
-	SetEnv MAIL_PORT ${MAIL_PORT:-2525}
+	SetEnv MAIL_HOST ${MAIL_HOST:-mail}
+	SetEnv MAIL_PORT ${MAIL_PORT:-1025}
 	SetEnv COMPOSER_HOME ${COMPOSER_HOME:-/usr/bin/composer}
 	EOF
 
