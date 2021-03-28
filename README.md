@@ -1,3 +1,5 @@
+![Build Docker Image](https://github.com/o1y/statamic-starter/actions/workflows/main.yml/badge.svg)
+
 # Statamic Starter
 
 Statamic Starter is a Docker development environment to make [Statamic](https://www.statamic.com) development even more fun and easy. This is all you need to easily build a Statamic website using Apache and PHP.

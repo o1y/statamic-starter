@@ -1,9 +1,12 @@
-name: 🚢 Build Docker Images
+name: 🚢 Build Images
 
 on:
   push:
     branches:
       - master
+    paths:
+      - 'images/*'
+      - 'run.sh'
       
 env:
   IMAGE_NAME: ghcr.io/o1y/statamic-starter
