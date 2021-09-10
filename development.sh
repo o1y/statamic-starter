@@ -14,14 +14,24 @@ main() {
 # ---------------------
 
 check_statamic() {
-	if [[ ! -f /var/www/config/app.php ]]; then
+	if [[ ! -f config/app.php ]]; then
 		h2 'No Statamic found. Begin Statamic Installation ...'
 		composer create-project statamic/statamic /tmp/statamic --prefer-dist --no-progress
-		mv -n /tmp/statamic/* /var/www/
-		sudo ln -s /var/www/please /usr/local/bin/please && chown +x /usr/local/bin/please /var/www/please
+		shopt -s dotglob nullglob && mv -n /tmp/statamic/* .
+		ln -s please /usr/local/bin/please && chmod +x /usr/local/bin/please please
+		cp -n .env.example .env && cp -n .env.example .env.docker
 	else
 		h2 'Statamic already installed.'
 	fi
+}
+
+set_env() {
+	if [[ ! -f .env.docker ]]; then
+    fatal '.env.docker not found.'
+    exit
+  fi
+
+  cp -n .env.docker .env
 }
 
 init() {
@@ -29,6 +39,9 @@ init() {
 
 	h2 'Check installation'
 	check_statamic
+
+	h2 'Set .env'
+  set_env
 
 	h1 'Statamic is ready'
 }
@@ -50,6 +63,10 @@ h1() {
 
 h2() {
 	printf '\e[1;33m==>\e[37;1m %s\e[0m\n' "$*"
+}
+
+fatal() {
+  printf '\e[1;31mFATAL:\e[37;1m %s\e[0m\n' "$*"
 }
 
 main

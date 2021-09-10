@@ -1,9 +1,5 @@
 version: '3.7'
 
-networks:
-  statamic:
-    driver: bridge
-
 services:
   statamic:
     image: ghcr.io/o1y/statamic-starter:latest-php7.4
@@ -11,18 +7,8 @@ services:
       - 8080:8080
     volumes:
       - ./:/var/www/
-    networks:
-      - statamic
   mail:
     image: mailhog/mailhog:latest
     ports:
       - 8025:8025
-    networks:
-      - statamic
-  redis:
-    image: redis:alpine
-    networks:
-      - statamic
-
-volumes:
-  data:
+      
