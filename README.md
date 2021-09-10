@@ -1,7 +1,5 @@
-# Statamic V3 Starter
+# Statamic Development Environment
 Statamic Starter is a Docker development environment to make [Statamic V3](https://www.statamic.com) development even more fun and easy.
-
-This setup is currently tested on macOS.
 
 [![Build Status](https://github.com/o1y/statamic-starter/actions/workflows/main.yml/badge.svg)](https://github.com/o1y/statamic-starter/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
@@ -11,47 +9,80 @@ This setup is currently tested on macOS.
 * Docker Engine >= 20.10.3
 * Docker Compose >= 1.28.5
 
-## Installation
+## How do I create a new Docker Statamic development environment?
 
-To quickly get started, you can run the following commands:
+1. To create a new Statamic development environment, put the following configuration to your `docker-compose.yml`:
 
+```yml
+version: '3.7'
+
+services:
+  statamic:
+    image: ghcr.io/o1y/statamic-starter:latest-php7.4
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/var/www/
 ```
-git clone --depth=1 git@github.com:o1y/statamic-starter.git
-cd statamic-starter/example
+
+2. Start the container:
+
+```sh
 docker compose up
 ```
 
-Wait until you see the output `Statamic is ready`.
+After starting the container for the very first time the startup script checks if a Statamic project is available. If not, it will install a fresh copy.
 
-Open a browser of your choice and access your new local Statamic website:
+3. Wait until you see `Statamic is ready` and open a browser of your choice and access your Statamic development environment:
 
 ```
 http://localhost:8080
 ```
 
-## Statamic Development
+## How do I run `please` or `artisan`?
 
-To run [CLI](https://statamic.dev/cli) get an interactive prompt first:
-
-```
-docker-compose exec statamic bash
-```
-
-Run `php artisan` or `php please` inside the statamic service.
-
-
-Alternatively, the commands can also be executed directly on the host.
+To run [please](https://statamic.dev/cli) get a bash shell in the container first:
 
 ```
-docker-compose exec statamic php please
+docker compose exec statamic bash
 ```
 
-## Build Images
-All Dockerfiles are located inside `images/*/Dockerfile`. To build the images you can run the `build.sh` script using [npm](https://www.npmjs.com/).
+Now you can run `php artisan` or `php please`.
+
+
+An alternative way to run `please` or `artisan` commands in your container is:
 
 ```
-npm run build
+docker compose exec statamic php please
+docker compose exec statamic php artisan
 ```
+
+## How do I create a new Statamic User?
+The easiest way to create your first user is by running
+
+```
+docker compose exec statamic php please make:user
+```
+
+## Where should I put my `.env` variables for local development?
+You should put your environment variables for local development into your `.env` file. Whenever you change that file, the php server will perform a reload. 
+
+However, you should not commit your local `.env` into your project. Instead use the file `.env.docker`, which we create during the initial Statamic installation.
+
+## How do I update Statamic?
+In your `composer.json`, change the `statamic/cms` version to the version number of your choice, e.g:
+
+```
+"statamic/cms": "3.2.*"
+```
+
+Then run:
+```
+docker compose exec statamic composer update statamic/cms --with-dependencies
+```
+
+## Can I use your Statamic Image in production?
+The image is not ready for production use yet. Feel free to create a PR :)
 
 ## License
 
