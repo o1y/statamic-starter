@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   statamic:
     image: ghcr.io/o1y/statamic-starter:latest-php7.4

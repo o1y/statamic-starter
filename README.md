@@ -6,16 +6,13 @@ Statamic Starter is a Docker development environment to make [Statamic V3](https
 
 ## Requirements
 
-* Docker Engine >= 20.10.3
-* Docker Compose >= 1.28.5
+* Docker Desktop >= 3.4
 
 ## How do I create a new Docker Statamic development environment?
 
 1. To create a new Statamic development environment, put the following configuration to your `docker-compose.yml`:
 
 ```yml
-version: '3.7'
-
 services:
   statamic:
     image: ghcr.io/o1y/statamic-starter:latest-php7.4
