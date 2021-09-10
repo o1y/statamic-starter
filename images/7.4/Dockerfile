@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:7.4-apache AS base
 ARG VERSION=latest
 LABEL maintainer="Oliver Mesieh <olivermesieh@gmail.com>" \
       version="${VERSION}-php7.4"
@@ -76,25 +76,9 @@ COPY run.sh /run.sh
 RUN useradd -ms /bin/bash -G sudo admin \
     && echo "admin ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/admin \
     && chmod 0440 /etc/sudoers.d/admin \
-    && chmod +x /run.sh \
-    && mkdir -m 0700 /app \
-    && chown admin:admin /app \
-    && printf '%s\t%s\t%s\t%s%s%s%s%s%s%s%s\t%d\t%d\n' \
-        '/app' \
-        '/var/www/html' \
-        'fuse.bindfs' \
-            'force-user=www-data,' \
-            'force-group=www-data,' \
-            'create-for-user=admin,' \
-            'create-for-group=admin,' \
-            'create-with-perms=0644:a+X,' \
-            'chgrp-ignore,' \
-            'chown-ignore,' \
-            'chmod-ignore' \
-        0 \
-        0 > /etc/fstab
+    && chmod +x /run.sh
 
 USER admin
-WORKDIR /app
-EXPOSE 80 443
+WORKDIR /var/www
+EXPOSE 8080
 CMD ["/run.sh"]

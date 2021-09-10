@@ -17,5 +17,7 @@ Thumbs.db
 .history
 .idea
 
-# Statamic
-example/statamic
+# Statamic Example
+example/*
+!example/docker-compose.yml
+!example/README.md

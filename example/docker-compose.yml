@@ -7,15 +7,10 @@ networks:
 services:
   statamic:
     image: ghcr.io/o1y/statamic-starter:latest-php7.4
-    cap_add:
-      - SYS_ADMIN
-    devices:
-      - /dev/fuse
     ports:
-      - 8080:80
-      - 443:443
+      - 8080:8080
     volumes:
-      - ./statamic:/app
+      - ./:/var/www/
     networks:
       - statamic
   mail:
