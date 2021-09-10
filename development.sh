@@ -18,7 +18,7 @@ check_statamic() {
 		h2 'No Statamic found. Begin Statamic Installation ...'
 		composer create-project statamic/statamic /tmp/statamic --prefer-dist --no-progress
 		shopt -s dotglob nullglob && mv -n /tmp/statamic/* .
-		ln -s please /usr/local/bin/please && chmod +x /usr/local/bin/please please
+		chmod +x please artisan
 		cp -n .env.example .env && cp -n .env.example .env.docker
 	else
 		h2 'Statamic already installed.'
