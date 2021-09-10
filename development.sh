@@ -34,6 +34,12 @@ set_env() {
   cp -n .env.docker .env
 }
 
+install_composer_dependencies() {
+	if [[ -f composer.json ]]; then
+		composer install --no-progress
+	fi
+}
+
 init() {
 	h1 'Prepare Statamic'
 
@@ -42,6 +48,9 @@ init() {
 
 	h2 'Set .env'
   set_env
+
+	h2 'Install composer dependencies'
+	install_composer_dependencies
 
 	h1 'Statamic is ready'
 }
