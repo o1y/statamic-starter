@@ -7,8 +7,3 @@ services:
       - 8080:8080
     volumes:
       - ./:/var/www/
-  mail:
-    image: mailhog/mailhog:latest
-    ports:
-      - 8025:8025
-      
