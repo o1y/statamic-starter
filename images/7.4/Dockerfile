@@ -18,30 +18,12 @@ RUN apt-get update; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
-# Install required PHP extensions
-RUN install-php-extensions \
-    gd \
-    bcmath \
-    exif \
-    zip \
-    ;
+ENV PHP_INI_DIR "/etc/php/7.4/cli"
 
 # Configure php ini
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \ 
-    && { \
-    echo 'memory_limit = ${PHP_INI_MEMORY_LIMIT}'; \
-    echo 'upload_max_filesize = ${PHP_INI_UPLOAD_MAX_FILESIZE}'; \
-    echo 'post_max_size = ${PHP_INI_POST_MAX_SIZE}'; \
-    } > $PHP_INI_DIR/conf.d/statamic.ini
-
-# Install requirements
-RUN echo "deb http://ftp2.de.debian.org/debian $(sed -n 's/^VERSION=.*(\(.*\)).*/\1/p' /etc/os-release)-backports main" >> /etc/apt/sources.list \
-    && apt-get update \
-    && apt-get install -y \
-    curl \
-    sudo \
-    vim \
-    unzip
+RUN sed -i "s/memory_limit.*$/memory_limit = $PHP_INI_MEMORY_LIMIT/g" "$PHP_INI_DIR/php.ini" \
+    && sed -i "s/upload_max_filesize.*$/upload_max_filesize = $PHP_INI_UPLOAD_MAX_FILESIZE/g" "$PHP_INI_DIR/php.ini" \
+    && sed -i "s/post_max_size.*$/post_max_size = $PHP_INI_POST_MAX_SIZE/g" "$PHP_INI_DIR/php.ini"
 
 FROM base as development
 
