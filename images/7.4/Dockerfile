@@ -1,4 +1,4 @@
-FROM php:7.4-apache AS base
+FROM phpdockerio/php:7.4-cli AS base
 ARG VERSION=latest
 LABEL maintainer="Oliver Mesieh <olivermesieh@gmail.com>" \
       version="${VERSION}-php7.4"
@@ -9,11 +9,14 @@ ENV PHP_INI_MEMORY_LIMIT 512M
 ENV PHP_INI_UPLOAD_MAX_FILESIZE 64M
 ENV PHP_INI_POST_MAX_SIZE 64M
 
-# Set debian mirror
-RUN sed -i 's/deb.debian.org/ftp2.de.debian.org/' /etc/apt/sources.list
-
-# Prepare PHP Extension Installer
-COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+# Install requirements
+RUN apt-get update; \
+    apt-get -y --no-install-recommends install \
+        php7.4-gd \
+        php7.4-bcmath \
+        php7.4-exif; \
+    apt-get clean; \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 # Install required PHP extensions
 RUN install-php-extensions \
@@ -39,9 +42,6 @@ RUN echo "deb http://ftp2.de.debian.org/debian $(sed -n 's/^VERSION=.*(\(.*\)).*
     sudo \
     vim \
     unzip
-
-# Get Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 FROM base as development
 
