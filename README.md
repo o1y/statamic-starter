@@ -15,7 +15,7 @@ Statamic Starter is a Docker development environment to make [Statamic V3](https
 ```yml
 services:
   statamic:
-    image: ghcr.io/o1y/statamic-starter:latest-php7.4
+    image: ghcr.io/o1y/statamic-starter:latest-php8.1
     ports:
       - 8080:8080
     volumes:
